@@ -1,7 +1,11 @@
 package com.campus.model;
-// import java.util.Arrays;
 
-public class Student {
+import com.campus.contract.StudentOperation;
+
+
+public abstractclass Student implements StudentOperation {
+    //Encapsulation - data hiding
+    // instance variables
     private int studentid;
     private String studentname;
     private int age;

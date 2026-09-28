@@ -24,10 +24,15 @@ public class Main {
         scanner.nextLine(); // Consume the newline character
 
     }
-    Student student = new Student(id, name, age, department, marks);
+    System.out.println("Enter the scholarship percentage:");
+    double scholarshipPercentage = scanner.nextDouble();
+    scannner.nextLine(); 
+    Student student = new ScholarshipStudent(id, name, age, department, marks);
     student.displayStudentInfo( true);
     Student.displayStudentCount();
     StudentService service = new StudentService();
+    service.generateReportcard(student);
+    scanner.close();
     
   }
 }
