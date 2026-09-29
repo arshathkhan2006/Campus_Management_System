@@ -81,9 +81,8 @@
                 <artifactId>jetty-ee10-maven-plugin</artifactId>
                 <version>12.0.14</version>
                 <configuration>
-                    <webAppSourceDirectory>src1/com/campus/app/src/main/webapp</webAppSourceDirectory>
                     <httpConnector>
-                        <port>8081</port>
+                        <port>8080</port>
                     </httpConnector>
                     <webApp>
                         <contextPath>/</contextPath>

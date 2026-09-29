@@ -1,28 +1,40 @@
 package com.campus.controller;
- import jakarta.servlet.annotation.WebServlet;
- import jakarta.servlet.http.HttpServlet;
- import jakarta.servlet.http.HttpServletRequest;
- import jakarta.servlet.http.HttpServletResponse;
- import java.io.IOException;
- import java.io.PrintWriter;
 
-@WebServlet("/student")
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import com.campus.services.StudentService;
+
+@WebServlet(urlPatterns = {"/student", "/students"})
 public class StudentServlet extends HttpServlet {
 
     private final StudentService studentService = new StudentService();
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>Student List</h1>");
-        out.println("<ul>");
-        
-        out.println(x: "<h1> All Students </h1>");
-        out.println(x: "<ul>");
-        for (Student student : studentService.getAllStudents()) {
-            out.println("<li>" + student + "</li>");
-        }
-        out.println(x: "</ul>");    
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws IOException , ServletException {
+                var students = studentService.getStudents();
+                request.setAttribute("students", students);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/students.jsp ");
+                dispatcher.forward(request, response);
+
     }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws IOException {
+        String name = request.getParameter("name");
+        String course = request.getParameter("course");
+        studentService.addStudent(name, course);
+        response.sendRedirect("/students");
+        
+    }
+
+    
+}
